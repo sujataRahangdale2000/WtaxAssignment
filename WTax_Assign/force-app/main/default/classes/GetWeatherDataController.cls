@@ -31,6 +31,16 @@ public class GetWeatherDataController {
         HttpResponse res = http.send(req);
         
         Map<String,Object> result = (Map<String,Object>)JSON.deserializeUntyped(res.getBody());
+        String timezone = String.valueOf(result.get('timezone'));
+        WeatherSearch__c searchLog = new WeatherSearch__c();
+        searchLog.User_Name__c = UserInfo.getName();
+        searchLog.Search_Date_Time__c = System.now();
+        searchLog.Forecast_Date__c = selectedDate;
+        searchLog.Location__c = city.Name;
+        searchLog.Timezone__c = timezone;
+
+        insert searchLog;
+        System.debug('searchLog>>'+searchLog);
         Map<String,Object> hourly = (Map<String,Object>)result.get('hourly');
         List<Object> times = (List<Object>)hourly.get('time');
         List<Object> temps = (List<Object>)hourly.get('temperature_2m');

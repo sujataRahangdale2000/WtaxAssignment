@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : Sujata Rahangdale
+  @group             : 
+  @last modified on  : 05-31-2026
+  @last modified by  : Sujata Rahangdale
+-->
+<template>
+    <lightning-card title="Weather Forecast">
+        <div class="slds-m-top_medium">
+            <lightning-combobox label="City" options={cityOptions} value={selectedCity} onchange={handleCity}>
+            </lightning-combobox>
+
+            <lightning-input type="date" label="Forecast Date" onchange={handleDate}>
+            </lightning-input>
+        </div>
+        <div class="slds-m-top_medium">
+            <lightning-button label="Get Wheather Forecast Data" onclick={getWeather}>
+            </lightning-button>
+        </div>
+<div class="slds-m-top_medium">
+        <template if:true={forecastData}>
+            <lightning-datatable key-field="reqtime" data={forecastData} columns={columns}>
+            </lightning-datatable>
+        </template>
+        </div>
+    </lightning-card>
+</template>
